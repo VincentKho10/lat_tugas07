@@ -3,6 +3,7 @@ include_once "db_function/InsuranceDao.php";
 include_once "db_function/PatientDao.php";
 include_once "db_function/UserDao.php";
 include_once "db_function/RoleDao.php";
+include_once "controller/InsuranceController.php";
 include_once "Entity/Insurance.php";
 include_once "Entity/Patient.php";
 include_once "Entity/Role.php";
@@ -74,10 +75,12 @@ if(!isset($_SESSION['loggedin'])){
                     include_once "view/home.php";
                     break;
                 case "ins":
-                    include_once "view/insurance.php";
+                    $ins = new InsuranceController();
+                    $ins->index();
                     break;
                 case "insupd":
-                    include_once "view/insurance_update.php";
+                    $ins = new InsuranceController();
+                    $ins->update();
                     break;
                 case "pat":
                     include_once "view/patient.php";

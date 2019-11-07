@@ -89,7 +89,8 @@ if(!isset($_SESSION['loggedin'])){
                     include_once "view/patient_update.php";
                     break;
                 case "rle":
-                    include_once "view/role.php";
+                    $rle = new RoleController();
+                    $rle->index();
                     break;
                 case "rleupd":
                     include_once "view/role_update.php";

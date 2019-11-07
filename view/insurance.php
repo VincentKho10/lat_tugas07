@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <fieldset>
     <legend>
         manipulasi data

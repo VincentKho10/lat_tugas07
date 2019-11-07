@@ -1,17 +1,3 @@
-<?php
-$btnAdd = filter_input(0,"btnAdd");
-if(isset($btnAdd)){
-    $nme = filter_input(0,"Name");
-    addRole($nme);
-}
-
-$deleted = filter_input(1,"id");
-if(isset($deleted)){
-    delRole($deleted);
-    header('Location:index.php?nav=rle');
-}
-?>
-
 <fieldset>
     <legend>manipulate data</legend>
     <form method="POST">
@@ -33,13 +19,13 @@ if(isset($deleted)){
 
     <tbody>
     <?php
-    $roles = getAllRole();
+    /* @var Role $role*/
     foreach ($roles as $role){
-        $rlestrg = "'".$role['id']."'";
+        $rlestrg = "'".$role->getId()."'";
         var_dump($rlestrg);
         echo '<tr>'
-            .'<td>'.$role["id"].'</td>'
-            .'<td>'.$role["name"].'</td>'
+            .'<td>'.$role->getId().'</td>'
+            .'<td>'.$role->getName().'</td>'
             .'<td><button onclick="rleUpdate('.$rlestrg.')">update</button>'
             .'<button onclick="rleDelete('.$rlestrg.')">delete</button></td>'
             .'</tr>';

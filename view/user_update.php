@@ -1,30 +1,5 @@
 <?php
-$userdao = new UserDao();
-$roledao = new RoleDao();
 
-$id=filter_input(1,"id");
-if(isset($id)){
-    $user = new User();
-    $user->setId($id);
-    $users = $userdao->getOneUser($user);
-    var_dump($users);
-}
-
-$updated=filter_input(0,"btnUpd");
-if(isset($updated)){
-    $id = filter_input(1,"id");
-    $pass = filter_input(0,"pass");
-    $confir = filter_input(0,"confpass");
-    $user = new User();
-    $user->setId($id);
-    if($pass == $confir){
-        $user->setPassword($confir);
-    }else{
-        var_dump("password dan verifikasi tidak sama");
-    }
-    $userdao->updUser($user);
-    header("Location:index.php?nav=usr");
-}
 
 ?>
 
@@ -44,7 +19,6 @@ if(isset($updated)){
             </thead>
             <tbody>
             <?php
-            $users = $userdao->getAllUser();
             foreach ($users as $user){
                 $usrstrg = "'".$user->getId()."'";
                 echo '<tr>'

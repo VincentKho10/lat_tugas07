@@ -4,6 +4,9 @@ include_once "db_function/PatientDao.php";
 include_once "db_function/UserDao.php";
 include_once "db_function/RoleDao.php";
 include_once "controller/InsuranceController.php";
+include_once "controller/UserController.php";
+include_once "controller/PatientController.php";
+include_once "controller/RoleController.php";
 include_once "Entity/Insurance.php";
 include_once "Entity/Patient.php";
 include_once "Entity/Role.php";
@@ -31,7 +34,8 @@ if(!isset($_SESSION['loggedin'])){
     <main>
         <?php
         if(!$_SESSION['loggedin']){
-            include_once "view/login.php";
+            $usr = new UserController();
+            $usr->login();
         }else {
             switch ($_SESSION['logged_as']){
                 case"Admin":
@@ -83,23 +87,28 @@ if(!isset($_SESSION['loggedin'])){
                     $ins->update();
                     break;
                 case "pat":
-                    include_once "view/patient.php";
+                    $pat = new PatientController();
+                    $pat->index();
                     break;
                 case "patupd":
-                    include_once "view/patient_update.php";
+                    $pat = new PatientController();
+                    $pat->upd();
                     break;
                 case "rle":
                     $rle = new RoleController();
                     $rle->index();
                     break;
                 case "rleupd":
-                    include_once "view/role_update.php";
+                    $rle = new RoleController();
+                    $rle->update();
                     break;
                 case "usr":
-                    include_once "view/user.php";
+                    $usr = new UserController();
+                    $usr->index();
                     break;
                 case "usrupd":
-                    include_once "view/user_update.php";
+                    $usr = new UserController();
+                    $usr->upd();
                     break;
                 case "lout":
                     session_unset();

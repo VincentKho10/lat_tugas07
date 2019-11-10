@@ -1,49 +1,4 @@
 <?php
-$patientdao = new PatientDao();
-$insurancedao = new InsuranceDao();
-
-$btnPatClicked = filter_input(0,"btnPatClicked");
-if(isset($btnPatClicked)){
-    $mrn = filter_input(0,"mrn");
-    $cidn = filter_input(0,"cidn");
-    $nme = filter_input(0,"nme");
-    $addr = filter_input(0,"adr");
-    $bhp = filter_input(0,"bhp");
-    $bhd = filter_input(0,"bhd");
-    $phn = filter_input(0,"phn");
-    $namafile = $mrn;
-    if(($_FILES['pto']['name'] == null) == 1){
-        echo "kolom file kosong";
-        $pto = "";
-    }else{
-        $namasementara = $_FILES['pto']['tmp_name'];
-        $dirupload = "upload/";
-        move_uploaded_file($namasementara,$dirupload.$namafile);
-        $pto = $dirupload.$namafile;
-    }
-    $ins = filter_input(0,"ins");
-    $patobj = new Patient();
-    $patobj->setMedRecordNumber($mrn);
-    $patobj->setCitizenIdNumber($cidn);
-    $patobj->setName($nme);
-    $patobj->setAddress($addr);
-    $patobj->setBirthPlace($bhp);
-    $patobj->setBirthDate($bhd);
-    $patobj->setPhoneNumber($phn);
-    $patobj->setPhoto($pto);
-    $patobj->setInsurance($ins);
-    $patientdao->addPatient($patobj);
-}
-
-$deleted = filter_input(1,"mrn");
-if(isset($deleted)){
-    $patobj = new Patient();
-    $patobj->setMedRecordNumber($deleted);
-    $pat = $patientdao->getOnePatient($patobj);
-    unlink($pat->getPhoto());
-    $patientdao->delPatient($patobj);
-    header('Location:index.php?nav=pat');
-}
 ?>
 
 <fieldset>
@@ -76,7 +31,6 @@ if(isset($deleted)){
         <label for="insurance">insurance:</label><br>
         <select id="insurance" name="ins">
         <?php
-        $insurances = $insurancedao->getAllInsurance();
         /* @var Insurance $item*/
         foreach ($insurances as $item) {
             echo "<option value='".$item->getId()."'>".$item->getNameClass()."</option>";
@@ -104,7 +58,6 @@ if(isset($deleted)){
     </thead>
     <tbody>
     <?php
-    $patients = $patientdao->getAllPatient();
     /* @var Patient $patient*/
     foreach ($patients as $patient){
         $patstrg = "'".$patient->getMedRecordNumber()."'";

@@ -1,20 +1,5 @@
 <?php
-    $userdao = new UserDao();
-    $login = filter_input(0,"btnLogin");
-    if(isset($login)){
-        $uname = filter_input(0,"Uname");
-        $pass = filter_input(0,"Pass");
-        $usr = new User();
-        $usr->setUsername($uname);
-        $usr->setPassword($pass);
-        $ulogged = $userdao->loginUser($usr);
-        if($ulogged != false){
-            /* @var User $ulogged*/
-            $_SESSION["logged_as"] = $ulogged[0]->getRole()->getName();
-            $_SESSION["loggedin"] = true;
-            header('location:index.php');
-        }
-    }
+
 ?>
 
 <form method="POST">
